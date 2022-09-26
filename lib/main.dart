@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pertemuan1/latihan1.dart';
-import 'package:pertemuan1/latihan3/latihan3.dart';
-import 'package:pertemuan1/latihan3/main_page.dart';
-
-import 'latihan2.dart';
+import 'package:pertemuan1/latihan1_Senin-18-September.dart';
+import 'latihan2_Rabu-20-September.dart';
+import 'latihan3_Sabtu-24-September/main_page.dart';
 
 void main() {
   runApp(MyApp());

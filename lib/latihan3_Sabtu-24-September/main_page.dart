@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:pertemuan1/latihan3/explore.dart';
-import 'package:pertemuan1/latihan3/notificartion.dart';
-import 'package:pertemuan1/latihan3/profile.dart';
+
 
 import '../constant/r.dart';
+import 'explore.dart';
 import 'latihan3.dart';
+import 'notificartion.dart';
+import 'profile.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key key}) : super(key: key);

@@ -8,9 +8,10 @@ class ExplorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
-        child: Text('ini halaman Explore')
-      ),
+          child: Text('ini halaman Explore',
+              style: TextStyle(color: Colors.white))),
     );
   }
 }

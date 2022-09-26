@@ -8,7 +8,8 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('ini halaman Notification')),
+      backgroundColor: Colors.black,
+      body: Center(child: Text('ini halaman Notification', style: TextStyle(color: Colors.white))),
     );
   }
 }

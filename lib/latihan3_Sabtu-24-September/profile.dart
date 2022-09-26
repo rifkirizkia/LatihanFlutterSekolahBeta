@@ -8,7 +8,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('ini halaman Profile')),
+      backgroundColor: Colors.black,
+      body: Center(child: Text('ini halaman Profile', style: TextStyle(color: Colors.white),)),
     );
   }
 }
