@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pertemuan1/latihan1_Senin-18-September.dart';
+import 'package:pertemuan1/latihan4_Selasa-27-September/latihan4_Selasa-27-September.dart';
+import 'package:pertemuan1/latihan4_Selasa-27-September/latihan_listview.dart';
+import 'package:pertemuan1/latihan6_Rabu-6-Oktober/page1.dart';
+
 import 'latihan2_Rabu-20-September.dart';
-import 'latihan3_Sabtu-24-September/main_page.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -30,7 +34,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainPage(),
+      home: Latihan2(),
     );
   }
 }
