@@ -64,12 +64,32 @@ class _Latihan2State extends State<Latihan2> {
                           'Pencet Saya',
                           style: TextStyle(color: Colors.black),
                         )),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Pesan Test Sekarang'),
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          backgroundColor: Colors.amber),
+                    SizedBox(
+                      width: 250,
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.abc),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text('Pesan Test Sekarang'),
+                            ],
+                          ),
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.black),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.amber),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                // Change your radius here
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          )),
                     )
                   ]),
             ),
