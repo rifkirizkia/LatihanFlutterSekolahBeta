@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:pertemuan1/latihan1_Senin-18-September.dart';
 import 'package:pertemuan1/latihan4_Selasa-27-September/latihan4_Selasa-27-September.dart';
 import 'package:pertemuan1/latihan4_Selasa-27-September/latihan_listview.dart';
+import 'package:pertemuan1/latihan5_Senin-3-Oktober/store_app.dart';
 import 'package:pertemuan1/latihan6_Rabu-6-Oktober/page1.dart';
+import 'package:pertemuan1/models/cart.dart';
+import 'package:provider/provider.dart';
 
 import 'latihan2_Rabu-20-September.dart';
 
 
 void main() {
   runApp(MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {

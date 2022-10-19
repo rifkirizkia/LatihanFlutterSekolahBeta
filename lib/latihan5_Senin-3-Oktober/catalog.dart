@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pertemuan1/latihan5_Senin-3-Oktober/product_detail_page.dart';
+import 'package:provider/provider.dart';
 
+import '../models/cart.dart';
 import '../models/product.dart';
 
 class CatalogPage extends StatelessWidget {
@@ -106,7 +108,11 @@ class CatalogProductCard extends StatelessWidget {
                       ConstrainedBox(
                         constraints: BoxConstraints(minWidth: 200),
                         child: TextButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<Cart>(context, listen: false)
+                                .addToCart(product);
+                            Navigator.pushNamed(context, '/shopping_cart');
+                          },
                           icon: Icon(Icons.shopping_cart_outlined),
                           label: Text('Add to Cart'),
                           style: TextButton.styleFrom(

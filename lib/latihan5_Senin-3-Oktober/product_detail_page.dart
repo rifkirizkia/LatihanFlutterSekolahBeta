@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pertemuan1/models/product.dart';
+import 'package:provider/provider.dart';
+
+import '../models/cart.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({Key key, this.product}) : super(key: key);
@@ -58,7 +61,10 @@ class ProductDetailPage extends StatelessWidget {
         ConstrainedBox(
           constraints: BoxConstraints.expand(),
           child: TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<Cart>(context, listen: false).addToCart(product);
+              Navigator.pushNamed(context, '/shopping_cart');
+            },
             icon: Icon(Icons.shopping_cart_outlined),
             label: Text('Add to Cart'),
             style: TextButton.styleFrom(

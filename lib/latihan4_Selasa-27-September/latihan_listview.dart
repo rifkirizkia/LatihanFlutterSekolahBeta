@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pertemuan1/models/product.dart';
+import 'package:provider/provider.dart';
 
-class LatihanListView extends StatefulWidget {
-  const LatihanListView({Key key}) : super(key: key);
+import '../models/cart.dart';
+
+class ShoppingCartPage extends StatefulWidget {
+  const ShoppingCartPage({Key key}) : super(key: key);
 
   @override
-  State<LatihanListView> createState() => _LatihanListViewState();
+  State<ShoppingCartPage> createState() => _ShoppingCartPageState();
 }
 
-class _LatihanListViewState extends State<LatihanListView> {
+class _ShoppingCartPageState extends State<ShoppingCartPage> {
   final List<Product> items = [
     Product(
       id: 1,
@@ -98,10 +101,12 @@ class _LatihanListViewState extends State<LatihanListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('ShoppingCartPage')),
-        body: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
+      appBar: AppBar(title: Text('ShoppingCartPage')),
+      body: Consumer<Cart>(
+          builder: (BuildContext context, Cart cart, Widget child) {
+        return ListView.builder(
+            itemCount: cart.items.length,
+            itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: Column(
                   children: [
@@ -117,25 +122,26 @@ class _LatihanListViewState extends State<LatihanListView> {
                         'Rp${items[index].prices}',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      trailing: SizedBox(
-                        width: 150,
-                        child: Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  print(items[index].id);
-                                  setState(() {
-                                    final item = items[index].id;
-                                    items.removeAt(index);
-                                  });
-                                },
-                                icon: Icon(Icons.delete)),
-                            ShoppingCartItemQty()
-                          ],
-                        ),
-                      ),
+                      // trailing: SizedBox(
+                      //   width: 150,
+                      //   child: Row(
+                      //     children: [
+                      //       IconButton(
+                      //           onPressed: () {
+                      //             print(items[index].id);
+                      //             setState(() {
+                      //               final item = items[index].id;
+                      //               items.removeAt(index);
+                      //             });
+                      //           },
+                      //           icon: Icon(Icons.delete)),
+                      //     ],
+                      //   ),
+                      // ),
                     ),
-                    // ShoppingCartItemQty()
+                    ShoppingCartItemQty(
+                      index: index,
+                    )
                   ],
                 ),
               );
@@ -144,38 +150,81 @@ class _LatihanListViewState extends State<LatihanListView> {
               //     color: Colors.teal.shade300,
               //     padding: EdgeInsets.all(40),
               //     child: Text(items[index]));
-            }));
+            });
+      }),
+      bottomNavigationBar: ShoppingCartTotal(),
+    );
   }
 }
 
-class ShoppingCartItemQty extends StatefulWidget {
-  const ShoppingCartItemQty({Key key}) : super(key: key);
-
+class ShoppingCartTotal extends StatelessWidget {
+  const ShoppingCartTotal({Key key}) : super(key: key);
   @override
-  State<ShoppingCartItemQty> createState() => _ShoppingCartItemQtyState();
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.tealAccent.shade400))),
+      child: Consumer<Cart>(
+        builder: (context, cart, child) {
+          return ListTile(
+            title: const Text(
+              'Total Price',
+              style: TextStyle(fontSize: 12, color: Colors.black),
+            ),
+            subtitle: Text(
+              'Rp${cart.totalPrice}',
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            trailing: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: 150),
+              child: TextButton(
+                child: Text('Checkout'),
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: cart.items.isNotEmpty
+                        ? Colors.tealAccent.shade700
+                        : Colors.grey.shade400),
+                onPressed: cart.items.isNotEmpty ? () {} : null,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
-class _ShoppingCartItemQtyState extends State<ShoppingCartItemQty> {
-  int _qty = 1;
+class ShoppingCartItemQty extends StatelessWidget {
+  const ShoppingCartItemQty({Key key, this.index}) : super(key: key);
+  final int index;
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
         IconButton(
             onPressed: () {
-              setState(() {
-                if (_qty > 1) _qty--;
-              });
+              Provider.of<Cart>(context, listen: false).removeFromCart(index);
+            },
+            icon: Icon(Icons.delete)),
+        IconButton(
+            onPressed: () {
+              Provider.of<Cart>(context, listen: false).decItemQty(index);
             },
             icon: Icon(Icons.remove)),
-        Text('$_qty'),
+        Selector<Cart, int>(
+            builder: ((BuildContext context, int qty, Widget child) {
+          return Text('$qty');
+        }), selector: (BuildContext context, Cart cart) {
+          return cart.items[index].qty;
+        }),
         IconButton(
             onPressed: () {
-              setState(() {
-                _qty++;
-              });
+              Provider.of<Cart>(context, listen: false).incItemQty(index);
             },
             icon: Icon(Icons.add)),
       ],
